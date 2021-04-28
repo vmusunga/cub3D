@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <mlx.h>
+#include "mlx.h"
 
 
 typedef struct    data_s
@@ -12,6 +12,9 @@ typedef struct    data_s
 
 int main(void)
 {
+	void *mlx_ptr;
+
+	mlx_ptr = mlx_init();
     data_t        data;
 
     if ((data.mlx_ptr = mlx_init()) == NULL)
