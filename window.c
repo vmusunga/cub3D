@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dunnoyet.c                                         :+:      :+:    :+:   */
+/*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 15:22:43 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/04/28 16:34:22 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/04/30 15:25:57 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ int	main()
 	img.img = mlx_new_image(mlx_ptr, 200, 100);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 
-	y = 100;
-	while (y < 300)
+	y = 500;
+	while (y < 700)
 	{
 		x = 1000;
 		while (x < 1200)
