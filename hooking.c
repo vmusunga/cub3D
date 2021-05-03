@@ -9,45 +9,76 @@ typedef struct	s_vars
 {
 	void	*mlx_ptr;
 	void	*mlx_win;
+	int	px;
+	int	py;
 }				t_vars;
 
-typedef struct	s_pos
-{
-	int	x;
-	int y;
-}				t_pos;
+typedef struct	s_data {
+	void		*img;
+	char		*addr;
+	int			bits_per_pixel;
+	int			line_length;
+	int			endian;
+}				t_data;
 
-int	*player(t_vars *vars, t_pos *pos)
+
+int	*player(t_vars *vars)
 {
-	pos->x = 21;
-	pos->y = 21;
-	mlx_pixel_put(vars->mlx_ptr, vars->mlx_win, pos->x, pos->y, 0x00FFFFFF);
+	/*
+	vars->py = 500;
+	while (vars->py < 700)
+	{
+		vars->px = 1000;
+		while (vars->px < 1200)
+		{
+			mlx_pixel_put(vars->mlx_ptr, vars->mlx_win, vars->px, vars->py, 0x00FFFFFF);
+			vars->px++;
+		}
+		vars->py++;
+	}*/
+	mlx_pixel_put(vars->mlx_ptr, vars->mlx_win, vars->px, vars->py, 0x00FFFFFF);
+	mlx_pixel_put(vars->mlx_ptr, vars->mlx_win, vars->px + 1, vars->py, 0x00FFFFFF);
+	//mlx_pixel_put(vars->mlx_ptr, vars->mlx_win, vars->px + 640, vars->py, 0x00FFFFFF);
+	//mlx_pixel_put(vars->mlx_ptr, vars->mlx_win, vars->px + 1, vars->py + 64, 0x00FFFFFF);
+	return (0);
 }
 
-int key_binding(int keycode, t_vars *vars, t_pos *pos)
+/*int		move_mtf(t_vars *vars, t_pos *pos)
 {
-	if (keycode == ESC_KEY)
-		mlx_destroy_window(vars->mlx_ptr, vars->mlx_win);
+	pos->x++;
+	mlx_pixel_put(vars->mlx_ptr, vars->mlx_win, pos->x, pos->y, 0x00FFFFFF);
+}*/
+
+int key_binding(int keycode, t_vars *vars)
+{
 	if (keycode)
 		printf("Key pressed ==		%d\n", keycode);
-	//if (keycode == 2)
+	if (keycode == ESC_KEY)
+		mlx_destroy_window(vars->mlx_ptr, vars->mlx_win);
+	if (keycode == 36)
+		mlx_string_put(vars->mlx_ptr, vars->mlx_win, 220, 200, 0x00FFFFFF, "PRESS ENTER TO START");
+	if (keycode == 2)
+	{
+		vars->px += 5;
+		player(vars);
+	}
 
 }
-/*int		move_mtf(t_vars *vars, int x, int y)
-{
-	mlx_loop_hook(vars->mlx_win, player, &vars);
-}*/
 
 int main()
 {
 	t_vars vars;
-	t_pos pos;
+	//t_data img;
+
+	vars.px = 21;
+	vars.py = 21;
 
 	vars.mlx_ptr = mlx_init();
 	vars.mlx_win = mlx_new_window(vars.mlx_ptr, 640, 480, "MA BITE");
-	player(&vars,&pos);
-	//mlx_loop_hook(vars.mlx_win, key_binding, &vars);
 
+	//img.img = mlx_new_image(vars.mlx_ptr, 0, 0);
+	//img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+	player(&vars);
 
 	mlx_key_hook(vars.mlx_win, key_binding, &vars);
 	mlx_loop(vars.mlx_ptr);
