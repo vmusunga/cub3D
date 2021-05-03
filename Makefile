@@ -6,18 +6,19 @@
 #    By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/02 12:31:33 by vmusunga          #+#    #+#              #
-#    Updated: 2021/04/30 16:44:09 by vmusunga         ###   ########.fr        #
+#    Updated: 2021/05/03 11:51:41 by vmusunga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS	=		get_next_line/get_next_line.c \
+#SRCS	=		get_next_line/get_next_line.c \
 				get_next_line/get_next_line_utils.c \
 				\
-				#libft/libft.a 
+				#libft/libft.a \
 				map.c
 
 
-#SRCS	=		map.c
+SRCS	=		hooking.c
+				#map.c
 				#window.c \
 
 INCLUDES	=	-I includes

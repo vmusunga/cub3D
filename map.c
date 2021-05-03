@@ -49,7 +49,6 @@ int	main()
 		{
 			mlx_pixel_put(&img, win_ptr, x_min, y, 0x00FFFFEE);
 			mlx_pixel_put(&img, win_ptr, x_max, y, 0x00FFFFEE);
-
 		}
 		y++;
 	}
