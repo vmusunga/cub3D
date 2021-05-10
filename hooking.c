@@ -21,6 +21,13 @@ typedef struct	s_data {
 	int			endian;
 }				t_data;
 
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	*(unsigned int*)dst = color;
+}
 
 int	*player(t_vars *vars)
 {
@@ -39,7 +46,7 @@ int	*player(t_vars *vars)
 	mlx_pixel_put(vars->mlx_ptr, vars->mlx_win, vars->px, vars->py, 0x00FFFFFF);
 	mlx_pixel_put(vars->mlx_ptr, vars->mlx_win, vars->px + 1, vars->py, 0x00FFFFFF);
 	//mlx_pixel_put(vars->mlx_ptr, vars->mlx_win, vars->px + 640, vars->py, 0x00FFFFFF);
-	//mlx_pixel_put(vars->mlx_ptr, vars->mlx_win, vars->px + 1, vars->py + 64, 0x00FFFFFF);
+	//mlx_pixel_put(vars->mlx_ptr, vars->mlx_win, vars->px + 1, vars->py + 640, 0x00FFFFFF);
 	return (0);
 }
 
@@ -54,14 +61,16 @@ int key_binding(int keycode, t_vars *vars)
 	if (keycode)
 		printf("Key pressed ==		%d\n", keycode);
 	if (keycode == ESC_KEY)
+	{
 		mlx_destroy_window(vars->mlx_ptr, vars->mlx_win);
-	if (keycode == 36)
-		mlx_string_put(vars->mlx_ptr, vars->mlx_win, 220, 200, 0x00FFFFFF, "PRESS ENTER TO START");
+		exit (0);
+	}
 	if (keycode == 2)
 	{
 		vars->px += 5;
 		player(vars);
 	}
+	return (0);
 
 }
 
