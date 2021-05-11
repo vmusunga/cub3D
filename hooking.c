@@ -9,6 +9,11 @@ typedef struct	s_vars
 {
 	void	*mlx_ptr;
 	void	*mlx_win;
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
 	int	px;
 	int	py;
 }				t_vars;
@@ -21,11 +26,11 @@ typedef struct	s_data {
 	int			endian;
 }				t_data;
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+void	my_mlx_pixel_put(t_vars *vars, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	dst = vars->addr + (vars->py * vars->line_length + x * (vars->bits_per_pixel / 8));
 	*(unsigned int*)dst = color;
 }
 
@@ -77,7 +82,7 @@ int key_binding(int keycode, t_vars *vars)
 int main()
 {
 	t_vars vars;
-	//t_data img;
+	//t_vars img;
 
 	vars.px = 21;
 	vars.py = 21;
@@ -86,7 +91,7 @@ int main()
 	vars.mlx_win = mlx_new_window(vars.mlx_ptr, 640, 480, "MA BITE");
 
 	//img.img = mlx_new_image(vars.mlx_ptr, 0, 0);
-	//img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+	//img.addr = mlx_get_vars_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 	player(&vars);
 
 	mlx_key_hook(vars.mlx_win, key_binding, &vars);

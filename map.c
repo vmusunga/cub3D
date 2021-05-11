@@ -3,6 +3,8 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <unistd.h>
+
+#include "includes/get_next_line.h"
 #include "mlx.h"
 
 
@@ -13,6 +15,28 @@ typedef struct	s_data {
 	int			line_length;		// (y * line_length + x * (bits_per_pixel / 8))
 	int			endian;				// 1 or 0 (depends on archi, order or sequence of bytes)
 }				t_data;
+
+void	ft_map(int fd)
+{
+	int i;
+	int x;
+	int y;
+	char *line;
+	char **map;
+
+	x = 0;
+	y = 0;
+	map = malloc(sizeof(char) * 100);
+	fd = open("map.cub", O_RDONLY);
+	while(fd)
+	{
+		i = get_next_line(fd, &line);
+		map[x] = ft_strdup(line);
+		free(line);
+		x++;
+	}
+	close(fd);
+}
 
 int	main()
 {
