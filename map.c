@@ -9,6 +9,8 @@
 
 
 typedef struct	s_data {
+	void *mlx_ptr;
+	void *win_ptr;
 	void		*img;
 	char		*addr;
 	int			bits_per_pixel;		// bpp (3 RGB + 1 Opacity = 4bits/pixel)
@@ -16,29 +18,112 @@ typedef struct	s_data {
 	int			endian;				// 1 or 0 (depends on archi, order or sequence of bytes)
 }				t_data;
 
-void	ft_map(int fd)
+typedef struct s_vars {
+	int x_max;
+	int x_min;
+	int y_max;
+	int y_min;
+}				t_vars;
+
+char	**ft_map(int fd)
 {
 	int i;
 	int x;
-	int y;
 	char *line;
 	char **map;
 
 	x = 0;
-	y = 0;
-	map = malloc(sizeof(char) * 100);
-	fd = open("map.cub", O_RDONLY);
-	while(fd)
+	map = malloc(sizeof(char*) * 100);
+	while(1)
 	{
 		i = get_next_line(fd, &line);
 		map[x] = ft_strdup(line);
 		free(line);
 		x++;
+		if (i == 0)
+		{
+			map[x] = 0;
+			return (map);
+		}
 	}
-	close(fd);
+}
+void	ft_classic_window(t_data *data)
+{
+	data->mlx_ptr = mlx_init();
+	data->win_ptr = mlx_new_window(data->mlx_ptr, 640, 480, "MAP");
+}
+
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	*(unsigned int*)dst = color;
+}
+
+int	*block_pxl(t_data *data, int x, int y)
+{
+	int i;
+	int j;
+	int a;
+
+	a = x;		//x init
+	i = y + 21;
+	j = x + 21;
+	while (y < i)
+	{
+		x = a;
+		while (a <= x && x < j)
+		{
+			mlx_pixel_put(data->mlx_ptr, data->win_ptr, x, y, 0x00FFFFEE);
+			x++;
+		}
+		y++;
+	}
+	return (0);
+}
+
+int	draw_map(t_data *data, int fd)
+{
+	char **map;
+	int x;
+	int y;
+	int px;
+	int py;
+
+	py = 10;
+	x = 0;
+	map = ft_map(fd);
+	while (map[x])
+	{
+		px = 10;
+		y = 0;
+		while (map[x][y])
+		{
+			if (map[x][y] == '1')
+				block_pxl(data, px, py);
+			px += 23;
+			y++;
+		}
+		py += 23;
+		x++;
+	}
+	return (0);
 }
 
 int	main()
+{
+	t_data data;
+	int fd;
+
+	fd = open("map.cub", O_RDONLY);
+	ft_classic_window(&data);
+	draw_map(&data, fd);
+
+	mlx_loop(data.mlx_ptr);
+}
+
+/*int	main()
 {
 	void *mlx_ptr;
 	void *win_ptr;
@@ -79,4 +164,4 @@ int	main()
 	mlx_put_image_to_window(mlx_ptr, win_ptr, img.img, 0, 0);
 
 	mlx_loop(mlx_ptr);
-}
+}*/
