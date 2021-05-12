@@ -16,6 +16,8 @@ typedef struct	s_data {
 	int			bits_per_pixel;		// bpp (3 RGB + 1 Opacity = 4bits/pixel)
 	int			line_length;		// (y * line_length + x * (bits_per_pixel / 8))
 	int			endian;				// 1 or 0 (depends on archi, order or sequence of bytes)
+	int px;
+	int py;
 }				t_data;
 
 typedef struct s_vars {
@@ -68,8 +70,8 @@ int	*block_pxl(t_data *data, int x, int y)
 	int a;
 
 	a = x;		//x init
-	i = y + 21;
-	j = x + 21;
+	i = y + 30;
+	j = x + 30;
 	while (y < i)
 	{
 		x = a;
@@ -88,26 +90,61 @@ int	draw_map(t_data *data, int fd)
 	char **map;
 	int x;
 	int y;
-	int px;
-	int py;
+	int bx;
+	int by;
 
-	py = 10;
+	by = 10;
 	x = 0;
 	map = ft_map(fd);
 	while (map[x])
 	{
-		px = 10;
+		bx = 10;
 		y = 0;
 		while (map[x][y])
 		{
 			if (map[x][y] == '1')
-				block_pxl(data, px, py);
-			px += 23;
+				block_pxl(data, bx, by);
+			bx += 31;
 			y++;
 		}
-		py += 23;
+		by += 31;
 		x++;
 	}
+	return (0);
+}
+
+int	player(t_data *data, int x, int y)
+{
+	int n;
+	int a;
+	int min;
+	int max;
+	int b; //x init
+
+	b = x;
+	a = y + 5;
+	n = 0;
+	while (y <= a)
+	{
+		x = b;
+		min = b - n;
+		max = b + n;
+		while (min <= x && x <= max)
+		{
+			mlx_pixel_put(data->mlx_ptr, data->win_ptr, x, y, 0x000FFF00);
+			x++;
+		}
+		n++;
+		y++;
+	}
+	return (0);
+}
+int	*player_test(t_data *data)
+{
+	mlx_pixel_put(data->mlx_ptr, data->win_ptr, data->px, data->py, 0xFFF00000);
+	mlx_pixel_put(data->mlx_ptr, data->win_ptr, data->px + 1, data->py, 0xFFF00000);
+	//mlx_pixel_put(data->mlx_ptr, data->mlx_win, data->px + 640, data->py, 0x00FFFFFF);
+	//mlx_pixel_put(data->mlx_ptr, data->mlx_win, data->px + 1, data->py + 640, 0x00FFFFFF);
 	return (0);
 }
 
@@ -115,10 +152,14 @@ int	main()
 {
 	t_data data;
 	int fd;
+	data.px = 21;
+	data.py = 21;
 
 	fd = open("map.cub", O_RDONLY);
 	ft_classic_window(&data);
 	draw_map(&data, fd);
+	player(&data, 60, 60);
+	//player_test(&data);
 
 	mlx_loop(data.mlx_ptr);
 }

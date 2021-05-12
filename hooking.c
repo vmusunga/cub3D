@@ -26,40 +26,32 @@ typedef struct	s_data {
 	int			endian;
 }				t_data;
 
-void	my_mlx_pixel_put(t_vars *vars, int x, int y, int color)
+int	*player(t_vars *vars, int x, int y)
 {
-	char	*dst;
+	int n;
+	int a;
+	int min;
+	int max;
+	int b; //x init
 
-	dst = vars->addr + (vars->py * vars->line_length + x * (vars->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
-}
-
-int	*player(t_vars *vars)
-{
-	/*
-	vars->py = 500;
-	while (vars->py < 700)
+	b = x;
+	a = y + 5;
+	n = 0;
+	while (y <= a)
 	{
-		vars->px = 1000;
-		while (vars->px < 1200)
+		x = b;
+		min = b - n;
+		max = b + n;
+		while (min <= x && x <= max)
 		{
-			mlx_pixel_put(vars->mlx_ptr, vars->mlx_win, vars->px, vars->py, 0x00FFFFFF);
-			vars->px++;
+			mlx_pixel_put(vars->mlx_ptr, vars->mlx_win, x, y, 0x000FFF00);
+			x++;
 		}
-		vars->py++;
-	}*/
-	mlx_pixel_put(vars->mlx_ptr, vars->mlx_win, vars->px, vars->py, 0x00FFFFFF);
-	mlx_pixel_put(vars->mlx_ptr, vars->mlx_win, vars->px + 1, vars->py, 0x00FFFFFF);
-	//mlx_pixel_put(vars->mlx_ptr, vars->mlx_win, vars->px + 640, vars->py, 0x00FFFFFF);
-	//mlx_pixel_put(vars->mlx_ptr, vars->mlx_win, vars->px + 1, vars->py + 640, 0x00FFFFFF);
+		n++;
+		y++;
+	}
 	return (0);
 }
-
-/*int		move_mtf(t_vars *vars, t_pos *pos)
-{
-	pos->x++;
-	mlx_pixel_put(vars->mlx_ptr, vars->mlx_win, pos->x, pos->y, 0x00FFFFFF);
-}*/
 
 int key_binding(int keycode, t_vars *vars)
 {
@@ -73,10 +65,9 @@ int key_binding(int keycode, t_vars *vars)
 	if (keycode == 2)
 	{
 		vars->px += 5;
-		player(vars);
+		player(vars, vars->px, vars->py);
 	}
 	return (0);
-
 }
 
 int main()
@@ -84,15 +75,15 @@ int main()
 	t_vars vars;
 	//t_vars img;
 
-	vars.px = 21;
-	vars.py = 21;
+	vars.px = 10;
+	vars.py = 10;
 
 	vars.mlx_ptr = mlx_init();
-	vars.mlx_win = mlx_new_window(vars.mlx_ptr, 640, 480, "MA BITE");
+	vars.mlx_win = mlx_new_window(vars.mlx_ptr, 640, 480, "MA BI");
 
 	//img.img = mlx_new_image(vars.mlx_ptr, 0, 0);
 	//img.addr = mlx_get_vars_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
-	player(&vars);
+	player(&vars, vars.px, vars.py);
 
 	mlx_key_hook(vars.mlx_win, key_binding, &vars);
 	mlx_loop(vars.mlx_ptr);
