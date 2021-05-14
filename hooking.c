@@ -53,7 +53,7 @@ int	*player(t_vars *vars, int x, int y)
 	return (0);
 }
 
-int key_binding(int keycode, t_vars *vars)
+int key_binding_origin(int keycode, t_vars *vars)
 {
 	if (keycode)
 		printf("Key pressed ==		%d\n", keycode);
@@ -85,6 +85,6 @@ int main()
 	//img.addr = mlx_get_vars_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 	player(&vars, vars.px, vars.py);
 
-	mlx_key_hook(vars.mlx_win, key_binding, &vars);
+	mlx_key_hook(vars.mlx_win, key_binding_origin, &vars);
 	mlx_loop(vars.mlx_ptr);
 }

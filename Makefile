@@ -6,13 +6,14 @@
 #    By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/02 12:31:33 by vmusunga          #+#    #+#              #
-#    Updated: 2021/05/12 13:10:47 by vmusunga         ###   ########.fr        #
+#    Updated: 2021/05/14 15:34:50 by vmusunga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS	=		get_next_line/get_next_line.c \
 				get_next_line/get_next_line_utils.c \
-				map.c
+				map.c 
+				# utils.c
 
 
 #SRCS	=		map.c

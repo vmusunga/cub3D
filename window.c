@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 15:22:43 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/05/10 16:33:22 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/05/14 15:18:30 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include "mlx.h"
+#include "includes/cub3d.h"
 
 typedef struct	s_data {
 	void		*img;
