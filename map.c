@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 11:41:41 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/05/19 13:11:08 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/05/19 17:41:38 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	**ft_map(int fd)
 	{
 		i = get_next_line(fd, &line);
 		map[x] = ft_strdup(line);
-		free(line);
+		//free(line);
 		x++;
 		if (i == 0)
 		{
@@ -119,8 +119,6 @@ int	player(t_data *data, int x, int y)
 	int min;
 	int max;
 	int b; //x init
-	float rot_x;
-	float rot_y;
 
 	b = x;
 	a = y + 20;
@@ -130,8 +128,6 @@ int	player(t_data *data, int x, int y)
 		x = b;
 		min = b - n;
 		max = b + n;
-		rot_x = data->px;
-		rot_y = data->py;
 		while (min <= x && x <= max)
 		{
 			my_mlx_pixel_put(data, x, y, 0x00FF0000);
@@ -164,7 +160,7 @@ int	hitbox(t_data *data)
 		{
 			if (map[x][y] == '1')
 			{
-				if ((bx <= data->rot_x && data->rot_x <= bx + 60) || (by <= data->rot_y && data->rot_y <= by + 60))
+				if ((bx <= data->rot_x && data->rot_x <= bx + 60) && (by <= data->rot_y && data->rot_y <= by + 60))
 					return (1);
 			}
 			bx += 61;
