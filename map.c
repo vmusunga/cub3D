@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 11:41:41 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/05/14 17:20:58 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/05/19 13:11:08 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,12 @@
 #include "includes/cub3d.h"
 
 
-typedef struct	s_img {
-	void		*img;
-	char		*addr;
-	int			bits_per_pixel;
-	int			line_length;
-	int			endian;
-}				t_img;
+typedef struct	s_map {
+	float rot_x;
+	float rot_y;
+}				t_map;
 
-typedef struct s_vars {
-	int x_max;
-	int x_min;
-	int y_max;
-	int y_min;
-}				t_vars;
+
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
@@ -88,7 +80,6 @@ int	block_pxl(t_data *data, int x, int y)
 		y++;
 	}
 	return (0);
-
 }
 
 int	draw_map(t_data *data)
@@ -152,21 +143,54 @@ int	player(t_data *data, int x, int y)
 	return (0);
 }
 
+int	hitbox(t_data *data)
+{
+	char **map;
+	int fd;
+	int bx;
+	int by;
+	int x;
+	int y;
+
+	fd = open("map.cub", O_RDONLY);
+	map = ft_map(fd);
+	x = 0;
+	by = 10;
+	while (map[x])
+	{
+		bx = 10;
+		y = 0;
+		while (map[x][y])
+		{
+			if (map[x][y] == '1')
+			{
+				if ((bx <= data->rot_x && data->rot_x <= bx + 60) || (by <= data->rot_y && data->rot_y <= by + 60))
+					return (1);
+			}
+			bx += 61;
+			y++;
+		}
+		by += 61;
+		x++;
+	}
+	return (0);
+}
+
 int	rotation_buisness(t_data *data)
 {
 	int i;
-	float rot_x;
-	float rot_y;
+	//float rot_x;
+	//float rot_y;
 
 	i = 0;
-	rot_x = data->px + 10;
-	rot_y = data->py + 10;
-	while (i < 30)
+	data->rot_x = data->px + 10;
+	data->rot_y = data->py + 10;
+	while (hitbox(data) == 0)
 	{
-		my_mlx_pixel_put(data, rot_x, rot_y, 0x00FF0000);
-		rot_x += cosf(data->angle);
-		rot_y += sinf(data->angle);
-		i++;
+		my_mlx_pixel_put(data, data->rot_x, data->rot_y, 0x00FF0000);
+		data->rot_x += cosf(data->angle);
+		data->rot_y += sinf(data->angle);
+		//i++;
 	}
 	return(0);
 }
@@ -223,60 +247,3 @@ int	main()
 	mlx_hook(data.win_ptr, 2, 1L<<0, key_binding, &data);
 	mlx_loop(data.mlx_ptr);
 }
-
-/*int	main()
-{
-	void *mlx_ptr;
-	void *win_ptr;
-
-	t_data img;
-	int x;
-	int y;
-	int x_max = 1200;
-	int x_min = 1000;
-	int y_max = 300;
-	int y_min = 100;
-
-	mlx_ptr = mlx_init();
-	win_ptr = mlx_new_window(mlx_ptr, 1950, 1080, "MAP");
-
-	img.img = mlx_new_image(mlx_ptr, 200, 100);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
-
-	y = 100;
-	while (y <= 300)
-	{
-		x = 1000;
-		if (y == y_min || y == y_max)
-		{
-			while (x <= x_max)
-			{
-				mlx_pixel_put(&img, win_ptr, x, y, 0x00FFFFEE);
-				x++;
-			}
-		}
-		else
-		{
-			mlx_pixel_put(&img, win_ptr, x_min, y, 0x00FFFFEE);
-			mlx_pixel_put(&img, win_ptr, x_max, y, 0x00FFFFEE);
-		}
-		y++;
-	}
-	mlx_put_image_to_window(mlx_ptr, win_ptr, img.img, 0, 0);
-
-	mlx_loop(mlx_ptr);
-}
-
-int	*player_test(t_data *data)
-{
-	mlx_pixel_put(data->mlx_ptr, data->win_ptr, data->px, data->py, 0xFFF00000);
-	mlx_pixel_put(data->mlx_ptr, data->win_ptr, data->px + 1, data->py, 0xFFF00000);
-	//mlx_pixel_put(data->mlx_ptr, data->mlx_win, data->px + 640, data->py, 0x00FFFFFF);
-	//mlx_pixel_put(data->mlx_ptr, data->mlx_win, data->px + 1, data->py + 640, 0x00FFFFFF);
-	return (0);
-}
-
-
-
-
-*/
