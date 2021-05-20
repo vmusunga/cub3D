@@ -34,7 +34,7 @@ int	main(void)
 	mlx_loop(mlx);
 }
 
-/*										MAP && HITBOX
+/*MAP && HITBOX -- LAG
 int	hitbox(t_data *data)
 {
 	char **map;

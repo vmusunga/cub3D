@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 11:41:41 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/05/20 18:45:39 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/05/20 19:22:32 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,35 @@ void	draw_map(t_data *data)
 	return ;
 }
 
+int	hitbox_player(t_data *data, int player_x,int player_y)
+{
+	int bx;
+	int by;
+	int x;
+	int y;
+
+	x = 0;
+	by = 10;
+	while (data->map[x])
+	{
+		bx = 10;
+		y = 0;
+		while (data->map[x][y])
+		{
+			if (data->map[x][y] == '1')
+			{
+				if ((bx <= player_x && player_x <= bx + 60) && (by <= player_y && player_y <= by + 60))
+					return (1);
+			}
+			bx += 61;
+			y++;
+		}
+		by += 61;
+		x++;
+	}
+	return (0);
+}
+
 int	player(t_data *data, int x, int y)
 {
 	int n;
@@ -130,6 +159,11 @@ int	player(t_data *data, int x, int y)
 		max = b + n;
 		while (min <= x && x <= max)
 		{
+			if (hitbox_player(data, x, y) == 1) //(x pas au bon endroit)
+			{
+				//printf("OFF BOUNDS");
+				//return(player(data, x, y));
+			}
 			my_mlx_pixel_put(data, x, y, 0x00FF0000);
 			x++;
 		}
@@ -139,7 +173,7 @@ int	player(t_data *data, int x, int y)
 	return (0);
 }
 
-int	hitbox(t_data *data)
+int	hitbox_ray(t_data *data)
 {
 	//char **map;
 	//int fd;
@@ -174,19 +208,16 @@ int	hitbox(t_data *data)
 
 int	rotation_buisness(t_data *data)
 {
-	int i;
 	//float rot_x;
 	//float rot_y;
 
-	i = 0;
 	data->rot_x = data->px + 10;
 	data->rot_y = data->py + 10;
-	while (hitbox(data) == 0)
+	while (hitbox_ray(data) == 0)
 	{
 		my_mlx_pixel_put(data, data->rot_x, data->rot_y, 0x00FF0000);
 		data->rot_x += cosf(data->angle);
 		data->rot_y += sinf(data->angle);
-		//i++;
 	}
 	return(0);
 }
@@ -197,7 +228,8 @@ int	ft_construct(t_data *data)
 	fd = open("map.cub", O_RDONLY);
 	ft_map(fd, data);
 	draw_map(data);
-	hitbox(data);
+	hitbox_ray(data);
+	hitbox_player(data, data->px, data->py);
 	player(data, data->px, data->py);
 	rotation_buisness(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img, 0, 0);
