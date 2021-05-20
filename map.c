@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 11:41:41 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/05/19 17:41:38 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/05/20 18:45:39 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,25 +37,25 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-char	**ft_map(int fd)
+char	**ft_map(int fd, t_data *data)
 {
 	int i;
 	int x;
 	char *line;
-	char **map;
+	//char **map;
 
 	x = 0;
-	map = malloc(sizeof(char*) * 100);
+	data->map = malloc(sizeof(char*) * 100);
 	while(1)
 	{
 		i = get_next_line(fd, &line);
-		map[x] = ft_strdup(line);
-		//free(line);
+		data->map[x] = ft_strdup(line);
+		free(line);
 		x++;
 		if (i == 0)
 		{
-			map[x] = 0;
-			return (map);
+			data->map[x] = 0;
+			return (data->map);
 		}
 	}
 }
@@ -82,10 +82,10 @@ int	block_pxl(t_data *data, int x, int y)
 	return (0);
 }
 
-int	draw_map(t_data *data)
+void	draw_map(t_data *data)
 {
-	char **map;
-	int fd;
+	//char **map;
+	//int fd;
 	int x;
 	int y;
 	int bx;
@@ -93,15 +93,15 @@ int	draw_map(t_data *data)
 
 	by = 10;
 	x = 0;
-	fd = open("map.cub", O_RDONLY);
-	map = ft_map(fd);
-	while (map[x])
+	//fd = open("map.cub", O_RDONLY);
+	//map = ft_map(fd);
+	while (data->map[x])
 	{
 		bx = 10;
 		y = 0;
-		while (map[x][y])
+		while (data->map[x][y])
 		{
-			if (map[x][y] == '1')
+			if (data->map[x][y] == '1')
 				block_pxl(data, bx, by);
 			bx += 61;
 			y++;
@@ -109,7 +109,7 @@ int	draw_map(t_data *data)
 		by += 61;
 		x++;
 	}
-	return (0);
+	return ;
 }
 
 int	player(t_data *data, int x, int y)
@@ -141,24 +141,24 @@ int	player(t_data *data, int x, int y)
 
 int	hitbox(t_data *data)
 {
-	char **map;
-	int fd;
+	//char **map;
+	//int fd;
 	int bx;
 	int by;
 	int x;
 	int y;
 
-	fd = open("map.cub", O_RDONLY);
-	map = ft_map(fd);
+	//fd = open("map.cub", O_RDONLY);
+	//map = ft_map(fd);
 	x = 0;
 	by = 10;
-	while (map[x])
+	while (data->map[x])
 	{
 		bx = 10;
 		y = 0;
-		while (map[x][y])
+		while (data->map[x][y])
 		{
-			if (map[x][y] == '1')
+			if (data->map[x][y] == '1')
 			{
 				if ((bx <= data->rot_x && data->rot_x <= bx + 60) && (by <= data->rot_y && data->rot_y <= by + 60))
 					return (1);
@@ -193,7 +193,11 @@ int	rotation_buisness(t_data *data)
 
 int	ft_construct(t_data *data)
 {
+	int fd;
+	fd = open("map.cub", O_RDONLY);
+	ft_map(fd, data);
 	draw_map(data);
+	hitbox(data);
 	player(data, data->px, data->py);
 	rotation_buisness(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img, 0, 0);
@@ -215,9 +219,15 @@ int key_binding(int keycode, t_data *data)
 	if (keycode == S_KEY)
 		data->py += 5;
 	if (keycode == RIGHT_ARROW_KEY)
-		data->angle += 0.1;
+	{
+		data->angle += 0.07;
+		printf("(%f ; %f)\n", data->rot_x, data->rot_y);
+	}
 	if (keycode == LEFT_ARROW_KEY)
-		data->angle -= 0.1;
+	{
+		data->angle -= 0.07;
+		printf("(%f ; %f)\n", data->rot_x, data->rot_y);
+	}
 	if (keycode == ESC_KEY)
 	{
 		mlx_destroy_window(data->mlx_ptr, data->win_ptr);

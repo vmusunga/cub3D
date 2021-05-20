@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 11:41:38 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/05/19 13:08:59 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/05/20 18:40:01 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ typedef struct	s_data {
 	int py;
 	float rot_x;
 	float rot_y;
+	int hitbox;
+	char **map;
 }				t_data;
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);

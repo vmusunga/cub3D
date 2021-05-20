@@ -33,3 +33,39 @@ int	main(void)
 	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
 	mlx_loop(mlx);
 }
+
+/*										MAP && HITBOX
+int	hitbox(t_data *data)
+{
+	char **map;
+	int fd;
+	int bx;
+	int by;
+	int x;
+	int y;
+
+	fd = open("map.cub", O_RDONLY);
+	map = ft_map(fd);
+	x = 0;
+	by = 10;
+	while (map[x])
+	{
+		bx = 10;
+		y = 0;
+		while (map[x][y])
+		{
+			//data->hitbox = 0;
+			if (map[x][y] == '1')
+			{
+				block_pxl(data, bx, by);
+				if ((bx <= data->rot_x && data->rot_x <= bx + 60) && (by <= data->rot_y && data->rot_y <= by + 60))
+					return (1);
+			}
+			bx += 61;
+			y++;
+		}
+		by += 61;
+		x++;
+	}
+	return (0);
+}*/
