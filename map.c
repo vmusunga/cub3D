@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 11:41:41 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/05/21 17:00:55 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/05/21 17:26:03 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,11 +224,13 @@ int	ft_construct(t_data *data)
 {
 	int fd;
 	fd = open("map.cub", O_RDONLY);
+	//t_keys keys;
+	//ft_move(data, &keys);
+
 	ft_map(fd, data);
 	draw_map(data);
 	hitbox_ray(data);
 	hitbox_player(data, data->px, data->py);
-	//ft_move(data, keys);
 	player(data, data->px, data->py);
 	rotation_buisness(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img, 0, 0);
@@ -287,5 +289,7 @@ int	main()
 	//mlx_hook(data.win_ptr, 2, 1L<<0, key_pressed, &keys);
 	//mlx_hook(data.win_ptr, 3, 1L<<1, key_release, &keys);
 	mlx_hook(data.win_ptr, 2, 1L<<0, key_binding, &data);
+
+	//mlx_loop_hook(data.mlx_ptr, ft_construct, &data);
 	mlx_loop(data.mlx_ptr);
 }
