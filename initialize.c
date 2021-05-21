@@ -1,19 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   move.c                                             :+:      :+:    :+:   */
+/*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/19 11:55:15 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/05/19 13:11:11 by vmusunga         ###   ########.fr       */
+/*   Created: 2021/05/21 15:55:46 by vmusunga          #+#    #+#             */
+/*   Updated: 2021/05/21 16:06:06 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/cub3d.h"
 #include "includes/key_bindings.h"
 
-void	ft_move(t_data *data)
+void	ft_initialize(t_data *data, t_keys *keys)
 {
-	
+	data->px = 100;
+	data->py = 100;
+	data->angle = 0;
+	keys->walk_speed = WALK_SPEED;
+	keys->turn_speed = TURN_SPEED;
+	return ;
 }

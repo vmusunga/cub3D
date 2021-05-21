@@ -6,16 +6,14 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 11:41:34 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/05/14 11:43:07 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/05/21 16:40:23 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <math.h>
-#include <stdio.h>
-#include <fcntl.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include "mlx.h"
+#ifndef KEY_BINDINGS_H
+# define KEY_BINDINGS_H
+
+//#include "cub3d.h"
 
 # define ESC_KEY 53
 
@@ -33,3 +31,17 @@
 
 # define SPACEBAR_KEY 49
 # define LCONTROL_KEY 256
+
+# define WALK_SPEED 0.2
+# define TURN_SPEED 0.7
+
+typedef struct	s_keys {
+	int horizontal_pos;
+	int vertical_pos;
+	int turn_direction;
+	float turn_speed;
+	float walk_speed;
+}				t_keys;
+
+
+#endif

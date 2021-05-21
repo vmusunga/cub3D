@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 11:41:41 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/05/20 19:22:32 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/05/21 17:00:55 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ typedef struct	s_map {
 	float rot_x;
 	float rot_y;
 }				t_map;
-
-
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
@@ -129,7 +127,7 @@ int	hitbox_player(t_data *data, int player_x,int player_y)
 		{
 			if (data->map[x][y] == '1')
 			{
-				if ((bx <= player_x && player_x <= bx + 60) && (by <= player_y && player_y <= by + 60))
+				if ((bx <= player_x && player_x <= bx + 61) && (by <= player_y && player_y <= by + 61))
 					return (1);
 			}
 			bx += 61;
@@ -194,7 +192,7 @@ int	hitbox_ray(t_data *data)
 		{
 			if (data->map[x][y] == '1')
 			{
-				if ((bx <= data->rot_x && data->rot_x <= bx + 60) && (by <= data->rot_y && data->rot_y <= by + 60))
+				if ((bx <= data->rot_x && data->rot_x <= bx + 61) && (by <= data->rot_y && data->rot_y <= by + 61))
 					return (1);
 			}
 			bx += 61;
@@ -230,6 +228,7 @@ int	ft_construct(t_data *data)
 	draw_map(data);
 	hitbox_ray(data);
 	hitbox_player(data, data->px, data->py);
+	//ft_move(data, keys);
 	player(data, data->px, data->py);
 	rotation_buisness(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img, 0, 0);
@@ -272,9 +271,11 @@ int key_binding(int keycode, t_data *data)
 int	main()
 {
 	t_data data;
-	data.px = 100;
-	data.py = 100;
-	data.angle = 1;
+	t_keys keys;
+	//data.px = 100;
+	//data.py = 100;
+	//data.angle = 0;
+	ft_initialize(&data, &keys);
 
 	data.mlx_ptr = mlx_init();
 	data.win_ptr = mlx_new_window(data.mlx_ptr, 640, 480, "MAP");
@@ -282,6 +283,9 @@ int	main()
 	data.addr = mlx_get_data_addr(data.img, &data.bits_per_pixel, &data.line_length, &data.endian);
 
 	ft_construct(&data);
+	
+	//mlx_hook(data.win_ptr, 2, 1L<<0, key_pressed, &keys);
+	//mlx_hook(data.win_ptr, 3, 1L<<1, key_release, &keys);
 	mlx_hook(data.win_ptr, 2, 1L<<0, key_binding, &data);
 	mlx_loop(data.mlx_ptr);
 }
