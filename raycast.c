@@ -1,21 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/22 15:26:06 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/05/22 18:16:08 by vmusunga         ###   ########.fr       */
+/*   Created: 2021/05/22 15:29:19 by vmusunga          #+#    #+#             */
+/*   Updated: 2021/05/22 18:50:31 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/cub3d.h"
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+double	ft_ray_length(t_data *data)		/** √((x_2-x_1)^2 + (y_2-y-1)^2) **/
 {
-	char	*dst;
+	double player_x;
+	double player_y;
+	double ray_x;
+	double ray_y;
+	double x;
+	double y;
+	double ray_length;
 
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
+	player_x = data->px;
+	player_y = data->py;
+	ray_x = data->rot_x;
+	ray_y = data->rot_y;
+	x = (ray_x - player_x);
+	y = (ray_y - player_y);
+	ray_length = hypot(x, y);
+	return (ray_length);
 }

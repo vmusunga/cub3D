@@ -6,14 +6,12 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 11:41:34 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/05/21 16:40:23 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/05/22 17:39:51 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef KEY_BINDINGS_H
 # define KEY_BINDINGS_H
-
-//#include "cub3d.h"
 
 # define ESC_KEY 53
 
@@ -33,7 +31,7 @@
 # define LCONTROL_KEY 256
 
 # define WALK_SPEED 0.2
-# define TURN_SPEED 0.7
+# define TURN_SPEED 0.1
 
 typedef struct	s_keys {
 	int horizontal_pos;

@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 11:41:41 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/05/21 17:26:03 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/05/22 19:02:58 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,26 +21,11 @@
 #include "mlx.h"
 #include "includes/cub3d.h"
 
-
-typedef struct	s_map {
-	float rot_x;
-	float rot_y;
-}				t_map;
-
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
-{
-	char	*dst;
-
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
-}
-
 char	**ft_map(int fd, t_data *data)
 {
 	int i;
 	int x;
 	char *line;
-	//char **map;
 
 	x = 0;
 	data->map = malloc(sizeof(char*) * 100);
@@ -65,8 +50,8 @@ int	block_pxl(t_data *data, int x, int y)
 	int a;
 
 	a = x;		//x init
-	i = y + 60;
-	j = x + 60;
+	i = y + BLOCK_SIZE - 1;
+	j = x + BLOCK_SIZE - 1;
 	while (y < i)
 	{
 		x = a;
@@ -82,29 +67,25 @@ int	block_pxl(t_data *data, int x, int y)
 
 void	draw_map(t_data *data)
 {
-	//char **map;
-	//int fd;
 	int x;
 	int y;
-	int bx;
-	int by;
+	double bx;
+	double by;
 
-	by = 10;
+	by = BLOCK_ORIGIN;
 	x = 0;
-	//fd = open("map.cub", O_RDONLY);
-	//map = ft_map(fd);
 	while (data->map[x])
 	{
-		bx = 10;
+		bx = BLOCK_ORIGIN;
 		y = 0;
 		while (data->map[x][y])
 		{
 			if (data->map[x][y] == '1')
 				block_pxl(data, bx, by);
-			bx += 61;
+			bx += BLOCK_SIZE;
 			y++;
 		}
-		by += 61;
+		by += BLOCK_SIZE;
 		x++;
 	}
 	return ;
@@ -112,41 +93,45 @@ void	draw_map(t_data *data)
 
 int	hitbox_player(t_data *data, int player_x,int player_y)
 {
-	int bx;
-	int by;
+	double bx;
+	double by;
 	int x;
 	int y;
 
 	x = 0;
-	by = 10;
+	by = BLOCK_ORIGIN;
 	while (data->map[x])
 	{
-		bx = 10;
+		bx = BLOCK_ORIGIN;
 		y = 0;
 		while (data->map[x][y])
 		{
 			if (data->map[x][y] == '1')
 			{
-				if ((bx <= player_x && player_x <= bx + 61) && (by <= player_y && player_y <= by + 61))
+				if ((bx <= player_x && player_x <= bx + BLOCK_SIZE) && (by <= player_y && player_y <= by + BLOCK_SIZE))
 					return (1);
 			}
-			bx += 61;
+			bx += BLOCK_SIZE;
 			y++;
 		}
-		by += 61;
+		by += BLOCK_SIZE;
 		x++;
 	}
 	return (0);
 }
 
-int	player(t_data *data, int x, int y)
+int	player(t_data *data)
 {
 	int n;
-	int a;
-	int min;
-	int max;
-	int b; //x init
+	double a;
+	double min;
+	double max;
+	double b; //x init
+	double x;
+	double y;
 
+	x = data->px;
+	y = data->py;
 	b = x;
 	a = y + 20;
 	n = 0;
@@ -157,11 +142,11 @@ int	player(t_data *data, int x, int y)
 		max = b + n;
 		while (min <= x && x <= max)
 		{
-			if (hitbox_player(data, x, y) == 1) //(x pas au bon endroit)
+			/*if (hitbox_player(data, x, y) == 1) //(x pas au bon endroit)
 			{
 				//printf("OFF BOUNDS");
 				//return(player(data, x, y));
-			}
+			}*/
 			my_mlx_pixel_put(data, x, y, 0x00FF0000);
 			x++;
 		}
@@ -173,51 +158,46 @@ int	player(t_data *data, int x, int y)
 
 int	hitbox_ray(t_data *data)
 {
-	//char **map;
-	//int fd;
-	int bx;
-	int by;
+	double bx;
+	double by;
 	int x;
 	int y;
 
-	//fd = open("map.cub", O_RDONLY);
-	//map = ft_map(fd);
 	x = 0;
-	by = 10;
+	by = BLOCK_ORIGIN;
 	while (data->map[x])
 	{
-		bx = 10;
+		bx = BLOCK_ORIGIN;
 		y = 0;
 		while (data->map[x][y])
 		{
 			if (data->map[x][y] == '1')
 			{
-				if ((bx <= data->rot_x && data->rot_x <= bx + 61) && (by <= data->rot_y && data->rot_y <= by + 61))
+				if ((bx <= data->rot_x && data->rot_x <= bx + BLOCK_SIZE) && (by <= data->rot_y && data->rot_y <= by + BLOCK_SIZE))
 					return (1);
 			}
-			bx += 61;
+			bx += BLOCK_SIZE;
 			y++;
 		}
-		by += 61;
+		by += BLOCK_SIZE;
 		x++;
 	}
 	return (0);
 }
 
-int	rotation_buisness(t_data *data)
+int	rotation_device(t_data *data)
 {
-	//float rot_x;
-	//float rot_y;
-
-	data->rot_x = data->px + 10;
-	data->rot_y = data->py + 10;
+	data->rot_x = data->px; // vector's origin
+	data->rot_y = data->py;
 	while (hitbox_ray(data) == 0)
 	{
 		my_mlx_pixel_put(data, data->rot_x, data->rot_y, 0x00FF0000);
-		data->rot_x += cosf(data->angle);
-		data->rot_y += sinf(data->angle);
+		data->rot_x += cos(data->angle);
+		data->rot_y += sin(data->angle);
 	}
-	return(0);
+	data->ray_length = ft_ray_length(data);
+	printf("(%f)\n", data->ray_length);
+	return (0);
 }
 
 int	ft_construct(t_data *data)
@@ -229,10 +209,10 @@ int	ft_construct(t_data *data)
 
 	ft_map(fd, data);
 	draw_map(data);
+	//hitbox_player(data, data->px, data->py);
+	player(data);
 	hitbox_ray(data);
-	hitbox_player(data, data->px, data->py);
-	player(data, data->px, data->py);
-	rotation_buisness(data);
+	rotation_device(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img, 0, 0);
 	return (0);
 }
@@ -244,13 +224,13 @@ int key_binding(int keycode, t_data *data)
 	if (keycode)
 		printf("Key pressed ==		%d\n", keycode);
 	if (keycode == D_KEY)
-		data->px += 5;
+		data->px += 3;
 	if (keycode == A_KEY)
-		data->px -= 5;
+		data->px -= 3;
 	if (keycode == W_KEY)
-		data->py -= 5;
+		data->py -= 3;
 	if (keycode == S_KEY)
-		data->py += 5;
+		data->py += 3;
 	if (keycode == RIGHT_ARROW_KEY)
 	{
 		data->angle += 0.07;
@@ -274,9 +254,6 @@ int	main()
 {
 	t_data data;
 	t_keys keys;
-	//data.px = 100;
-	//data.py = 100;
-	//data.angle = 0;
 	ft_initialize(&data, &keys);
 
 	data.mlx_ptr = mlx_init();
