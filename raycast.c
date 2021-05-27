@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 15:29:19 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/05/27 17:19:51 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/05/27 18:06:04 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,9 @@ int	raycasting(t_data *data, t_win *win)
 	{
 		rotation_device(data);
 		show_3D(data, win);
+
 		data->ray_angle += (PI / 3) / (win->width);
+
 		if (data->ray_angle > 2 * PI)
 		data->ray_angle -= 2 * PI;
 		if (data->ray_angle < 0)

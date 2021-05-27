@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 11:41:41 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/05/27 17:21:31 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/05/27 18:04:55 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,6 +199,7 @@ int	hitbox_ray(t_data *data)
 	printf("(%f)\n", data->ray_length);
 	return (0);
 }*/
+
 int	rotation_device(t_data *data)
 {
 	data->rot_x = data->px; // vector's origin
@@ -210,7 +211,7 @@ int	rotation_device(t_data *data)
 		data->rot_y += sin(data->ray_angle);
 	}
 	data->ray_length = ft_ray_length(data);
-	printf("(%f)\n", data->ray_length);
+	//printf("(%f)\n", data->ray_length);
 	return (0);
 }
 
@@ -224,7 +225,7 @@ int	ft_construct(t_data *data)
 	ft_map(fd, data);
 	draw_map(data);
 	//hitbox_player(data, data->px, data->py);
-	player(data);
+	//player(data);
 	hitbox_ray(data);
 	raycasting(data, &data->win);
 	//rotation_device(data);
@@ -235,7 +236,7 @@ int	ft_construct(t_data *data)
 int key_binding(int keycode, t_data *data)
 {
 	mlx_destroy_image(data->mlx_ptr, data->img);
-	data->img = mlx_new_image(data->mlx_ptr, 640, 480);
+	data->img = mlx_new_image(data->mlx_ptr, data->win.width, data->win.height);
 	if (keycode)
 		printf("Key pressed ==		%d\n", keycode);
 	if (keycode == D_KEY)
@@ -272,8 +273,8 @@ int	main()
 	ft_initialize(&data, &keys);
 
 	data.mlx_ptr = mlx_init();
-	data.win_ptr = mlx_new_window(data.mlx_ptr, 640, 480, "MAP");
-	data.img = mlx_new_image(data.mlx_ptr, 640, 480);
+	data.win_ptr = mlx_new_window(data.mlx_ptr, data.win.width, data.win.height, "MAP");
+	data.img = mlx_new_image(data.mlx_ptr, data.win.width, data.win.height);
 	data.addr = mlx_get_data_addr(data.img, &data.bits_per_pixel, &data.line_length, &data.endian);
 
 	ft_construct(&data);

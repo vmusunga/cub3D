@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 11:41:38 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/05/27 17:12:03 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/05/27 17:41:52 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 #include "get_next_line.h"
 #include "key_bindings.h"
 
-# define BLOCK_SIZE 71
-# define BLOCK_ORIGIN 10
+# define BLOCK_SIZE 21
+# define BLOCK_ORIGIN 0
 
 typedef struct	s_win {
 	double	height;
