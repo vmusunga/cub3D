@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 15:55:46 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/05/22 18:55:46 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/05/27 15:42:10 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,6 @@ void	ft_initialize(t_data *data, t_keys *keys)
 	data->angle = 0;
 	keys->walk_speed = WALK_SPEED;
 	keys->turn_speed = TURN_SPEED;
+	data->win.height = 480;
 	return ;
 }

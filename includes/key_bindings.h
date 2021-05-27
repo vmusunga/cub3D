@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 11:41:34 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/05/22 17:39:51 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/05/27 16:32:41 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@
 
 # define WALK_SPEED 0.2
 # define TURN_SPEED 0.1
+
+# define PI 3.1415
 
 typedef struct	s_keys {
 	int horizontal_pos;

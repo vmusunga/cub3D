@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 11:41:41 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/05/22 19:02:58 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/05/27 17:21:31 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +185,7 @@ int	hitbox_ray(t_data *data)
 	return (0);
 }
 
-int	rotation_device(t_data *data)
+/*int	rotation_device(t_data *data)
 {
 	data->rot_x = data->px; // vector's origin
 	data->rot_y = data->py;
@@ -194,6 +194,20 @@ int	rotation_device(t_data *data)
 		my_mlx_pixel_put(data, data->rot_x, data->rot_y, 0x00FF0000);
 		data->rot_x += cos(data->angle);
 		data->rot_y += sin(data->angle);
+	}
+	data->ray_length = ft_ray_length(data);
+	printf("(%f)\n", data->ray_length);
+	return (0);
+}*/
+int	rotation_device(t_data *data)
+{
+	data->rot_x = data->px; // vector's origin
+	data->rot_y = data->py;
+	while (hitbox_ray(data) == 0)
+	{
+		my_mlx_pixel_put(data, data->rot_x, data->rot_y, 0x00FF0000);
+		data->rot_x += cos(data->ray_angle);
+		data->rot_y += sin(data->ray_angle);
 	}
 	data->ray_length = ft_ray_length(data);
 	printf("(%f)\n", data->ray_length);
@@ -212,7 +226,8 @@ int	ft_construct(t_data *data)
 	//hitbox_player(data, data->px, data->py);
 	player(data);
 	hitbox_ray(data);
-	rotation_device(data);
+	raycasting(data, &data->win);
+	//rotation_device(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img, 0, 0);
 	return (0);
 }

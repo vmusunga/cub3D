@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 11:41:38 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/05/22 18:31:14 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/05/27 17:12:03 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@
 # define BLOCK_SIZE 71
 # define BLOCK_ORIGIN 10
 
+typedef struct	s_win {
+	double	height;
+	double	width;
+}				t_win;
+
 typedef struct	s_data {
 	void *mlx_ptr;
 	void *win_ptr;
@@ -40,10 +45,17 @@ typedef struct	s_data {
 	double py;
 	double rot_x;
 	double rot_y;
+	double ray_x;
+	double ray_y;
+	double ray_angle;
 	double ray_length;
 
 	char **map;
+
+	t_win	win;
 }				t_data;
+
+
 
 /*
 ** GRAPHIC
@@ -66,6 +78,9 @@ int	key_bindings(int keycode, t_data *data, t_keys *keys);
 ** RAYCASTING
 */
 
+int	raycasting(t_data *data, t_win *win);
+int	rotation_device(t_data *data);
 double	ft_ray_length(t_data *data);
+int	show_3D(t_data *data, t_win *win);
 
 #endif
