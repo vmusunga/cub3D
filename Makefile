@@ -6,7 +6,7 @@
 #    By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/02 12:31:33 by vmusunga          #+#    #+#              #
-#    Updated: 2021/05/22 16:06:24 by vmusunga         ###   ########.fr        #
+#    Updated: 2021/05/23 03:02:08 by vmusunga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,18 +18,13 @@ SRCS	=		get_next_line/get_next_line.c \
 				initialize.c \
 				utils.c
 
-
-#SRCS	=		map.c
-				#hooking.c
-				#window.c
-
-INCLUDES	=	-I includes
+INCLUDES	=	-I includes minilibx_mms_20200219
 
 OBJS		=	$(SRCS:.c=.o)
 
 
 #MAKE_LIBFT	=		@ cd libft && make ;
-MLX			=		-lmlx -framework OpenGL -framework AppKit
+MLX			=		-Lmlx -lmlx -framework OpenGL -framework AppKit
 CC			=		gcc
 
 CFLAGS		=		-Wall -Werror -Wextra
