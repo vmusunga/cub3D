@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 11:41:38 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/05/27 17:41:52 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/05/31 10:20:31 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int		ft_construct(t_data *data);
 void	ft_initialize(t_data *data, t_keys *keys);
 void	ft_move(t_data *data, t_keys *keys);
+int		hitbox_ray(t_data *data);
 
 /*
 ** KEYS

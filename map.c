@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 11:41:41 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/05/27 18:04:55 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/05/31 10:19:36 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,20 +200,7 @@ int	hitbox_ray(t_data *data)
 	return (0);
 }*/
 
-int	rotation_device(t_data *data)
-{
-	data->rot_x = data->px; // vector's origin
-	data->rot_y = data->py;
-	while (hitbox_ray(data) == 0)
-	{
-		my_mlx_pixel_put(data, data->rot_x, data->rot_y, 0x00FF0000);
-		data->rot_x += cos(data->ray_angle);
-		data->rot_y += sin(data->ray_angle);
-	}
-	data->ray_length = ft_ray_length(data);
-	//printf("(%f)\n", data->ray_length);
-	return (0);
-}
+
 
 int	ft_construct(t_data *data)
 {
@@ -238,7 +225,7 @@ int key_binding(int keycode, t_data *data)
 	mlx_destroy_image(data->mlx_ptr, data->img);
 	data->img = mlx_new_image(data->mlx_ptr, data->win.width, data->win.height);
 	if (keycode)
-		printf("Key pressed ==		%d\n", keycode);
+		printf("Key pressed =	%d\n", keycode);
 	if (keycode == D_KEY)
 		data->px += 3;
 	if (keycode == A_KEY)

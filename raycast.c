@@ -6,11 +6,26 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 15:29:19 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/05/27 18:06:04 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/05/31 15:17:50 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/cub3d.h"
+
+int	rotation_device(t_data *data)
+{
+	data->rot_x = data->px; // vector's origin
+	data->rot_y = data->py;
+	while (hitbox_ray(data) == 0)
+	{
+		my_mlx_pixel_put(data, data->rot_x, data->rot_y, 0x00FF0000);
+		data->rot_x += cos(data->ray_angle);
+		data->rot_y += sin(data->ray_angle);
+	}
+	data->ray_length = ft_ray_length(data);
+	printf("(%f)\n", data->ray_length);
+	return (0);
+}
 
 double	ft_ray_length(t_data *data)		/** √((x_2-x_1)^2 + (y_2-y-1)^2) **/
 {
@@ -57,21 +72,20 @@ int	raycasting(t_data *data, t_win *win)
 
 	x = 0;
 	data->ray_angle = (data->angle) - (PI / 6);
-	if (data->ray_angle > 2 * PI)
+	/*if (data->ray_angle > 2 * PI)
 		data->ray_angle -= 2 * PI;
 	if (data->ray_angle < 0)
-		data->ray_angle += 2 * PI;
+		data->ray_angle += 2 * PI;*/
 	while (x < win->width)
 	{
 		rotation_device(data);
 		show_3D(data, win);
 
 		data->ray_angle += (PI / 3) / (win->width);
-
-		if (data->ray_angle > 2 * PI)
-		data->ray_angle -= 2 * PI;
+		/*if (data->ray_angle > 2 * PI)
+			data->ray_angle -= 2 * PI;
 		if (data->ray_angle < 0)
-		data->ray_angle += 2 * PI;
+			data->ray_angle += 2 * PI;*/
 		x++;
 	}
 	return (0);
