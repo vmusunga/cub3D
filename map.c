@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 11:41:41 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/05/31 10:19:36 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/05/31 16:46:56 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,20 +185,20 @@ int	hitbox_ray(t_data *data)
 	return (0);
 }
 
-/*int	rotation_device(t_data *data)
+int	centered_ray(t_data *data)
 {
 	data->rot_x = data->px; // vector's origin
 	data->rot_y = data->py;
 	while (hitbox_ray(data) == 0)
 	{
-		my_mlx_pixel_put(data, data->rot_x, data->rot_y, 0x00FF0000);
+		my_mlx_pixel_put(data, data->rot_x, data->rot_y, 0x0000FF);
 		data->rot_x += cos(data->angle);
 		data->rot_y += sin(data->angle);
 	}
 	data->ray_length = ft_ray_length(data);
 	printf("(%f)\n", data->ray_length);
 	return (0);
-}*/
+}
 
 
 
@@ -215,7 +215,7 @@ int	ft_construct(t_data *data)
 	//player(data);
 	hitbox_ray(data);
 	raycasting(data, &data->win);
-	//rotation_device(data);
+	centered_ray(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img, 0, 0);
 	return (0);
 }
@@ -231,7 +231,10 @@ int key_binding(int keycode, t_data *data)
 	if (keycode == A_KEY)
 		data->px -= 3;
 	if (keycode == W_KEY)
-		data->py -= 3;
+	{
+		data->px += cosf(data->angle + WALK_SPEED);
+		data->py += sinf(data->angle + WALK_SPEED);
+	}
 	if (keycode == S_KEY)
 		data->py += 3;
 	if (keycode == RIGHT_ARROW_KEY)

@@ -6,11 +6,20 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 15:29:19 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/05/31 15:17:50 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/05/31 16:18:17 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/cub3d.h"
+
+void	angle_overflow(t_data *data)
+{
+	if (data->ray_angle > 2 * PI)
+			data->ray_angle -= 2 * PI;
+	if (data->ray_angle < 0)
+			data->ray_angle += 2 * PI;
+	return ;
+}
 
 int	rotation_device(t_data *data)
 {
@@ -52,8 +61,6 @@ int	show_3D(t_data *data, t_win *win)
 {
 	double len;
 
-	data->ray_x = data->rot_x;
-	data->ray_y = data->rot_y;
 	len = win->height / data->ray_length;
 	data->ray_y = (win->height / 2) - (len / 2);
 	while (len > 0)
@@ -72,20 +79,15 @@ int	raycasting(t_data *data, t_win *win)
 
 	x = 0;
 	data->ray_angle = (data->angle) - (PI / 6);
-	/*if (data->ray_angle > 2 * PI)
-		data->ray_angle -= 2 * PI;
-	if (data->ray_angle < 0)
-		data->ray_angle += 2 * PI;*/
+	//angle_overflow(data);
+	data->ray_x = data->rot_x;
+	data->ray_y = data->rot_y;
 	while (x < win->width)
 	{
 		rotation_device(data);
 		show_3D(data, win);
-
 		data->ray_angle += (PI / 3) / (win->width);
-		/*if (data->ray_angle > 2 * PI)
-			data->ray_angle -= 2 * PI;
-		if (data->ray_angle < 0)
-			data->ray_angle += 2 * PI;*/
+		//angle_overflow(data);
 		x++;
 	}
 	return (0);
