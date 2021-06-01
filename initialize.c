@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 15:55:46 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/06/01 15:03:23 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/06/01 15:40:05 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@ void	ft_initialize(t_data *data, t_keys *keys)
 	keys->turn_speed = TURN_SPEED;
 	data->win.width = 1950;
 	data->win.height = 1080;
-	//data->ray_length = hypot(data->rot_x - data->px, data->rot_y - data->py);
+	//data->ray_length = hypot(data->rot_x - data->px, data->rot_y - data->py);    ---> PAS ARRONDI WTF?
 	return ;
 }
