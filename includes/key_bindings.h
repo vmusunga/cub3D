@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 11:41:34 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/06/01 13:12:38 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/06/01 13:22:26 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define SPACEBAR_KEY 49
 # define LCONTROL_KEY 256
 
-# define WALK_SPEED 0.2
+# define WALK_SPEED 0.1
 # define TURN_SPEED 0.07
 
 # define PI 3.1415

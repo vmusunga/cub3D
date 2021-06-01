@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 11:41:41 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/06/01 12:54:10 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/06/01 15:04:07 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,8 +195,7 @@ int	centered_ray(t_data *data)
 		data->rot_x += cos(data->angle);
 		data->rot_y += sin(data->angle);
 	}
-	data->ray_length = ft_ray_length(data);
-	//printf("(%f)\n", data->ray_length);
+	printf("(%f)\n", data->ray_length);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 11:41:38 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/06/01 12:34:24 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/06/01 14:52:59 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	key_binding(t_data *data);
 
 int	raycasting(t_data *data, t_win *win);
 int	rotation_device(t_data *data);
-double	ft_ray_length(t_data *data);
+void	ft_ray_length(t_data *data);
 int	show_3D(t_data *data, t_win *win);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 11:55:15 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/06/01 13:14:53 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/06/01 13:21:38 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int key_binding(t_data *data)
 	data->img = mlx_new_image(data->mlx_ptr, data->win.width, data->win.height);
 	dep = 7 * WALK_SPEED;
 	if (data->keys.d == 1)
-	{
+	{				//fct -> if not un mur then do
 		data->px += dep * cosf(data->angle + PI / 2);
 		data->py += dep * sinf(data->angle + PI / 2);
 	}
@@ -98,5 +98,5 @@ int key_binding(t_data *data)
 	return (0);
 }
 
-void	ft_move(t_data *data, t_keys *keys)
-{}
+//void	ft_move(t_data *data, t_keys *keys)
+
