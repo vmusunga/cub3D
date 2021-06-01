@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 11:41:41 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/05/31 16:46:56 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/06/01 12:54:10 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,7 +196,7 @@ int	centered_ray(t_data *data)
 		data->rot_y += sin(data->angle);
 	}
 	data->ray_length = ft_ray_length(data);
-	printf("(%f)\n", data->ray_length);
+	//printf("(%f)\n", data->ray_length);
 	return (0);
 }
 
@@ -220,42 +220,6 @@ int	ft_construct(t_data *data)
 	return (0);
 }
 
-int key_binding(int keycode, t_data *data)
-{
-	mlx_destroy_image(data->mlx_ptr, data->img);
-	data->img = mlx_new_image(data->mlx_ptr, data->win.width, data->win.height);
-	if (keycode)
-		printf("Key pressed =	%d\n", keycode);
-	if (keycode == D_KEY)
-		data->px += 3;
-	if (keycode == A_KEY)
-		data->px -= 3;
-	if (keycode == W_KEY)
-	{
-		data->px += cosf(data->angle + WALK_SPEED);
-		data->py += sinf(data->angle + WALK_SPEED);
-	}
-	if (keycode == S_KEY)
-		data->py += 3;
-	if (keycode == RIGHT_ARROW_KEY)
-	{
-		data->angle += 0.07;
-		printf("(%f ; %f)\n", data->rot_x, data->rot_y);
-	}
-	if (keycode == LEFT_ARROW_KEY)
-	{
-		data->angle -= 0.07;
-		printf("(%f ; %f)\n", data->rot_x, data->rot_y);
-	}
-	if (keycode == ESC_KEY)
-	{
-		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-		exit (0);
-	}
-	ft_construct(data);
-	return (0);
-}
-
 int	main()
 {
 	t_data data;
@@ -269,10 +233,8 @@ int	main()
 
 	ft_construct(&data);
 	
-	//mlx_hook(data.win_ptr, 2, 1L<<0, key_pressed, &keys);
-	//mlx_hook(data.win_ptr, 3, 1L<<1, key_release, &keys);
-	mlx_hook(data.win_ptr, 2, 1L<<0, key_binding, &data);
-
-	//mlx_loop_hook(data.mlx_ptr, ft_construct, &data);
+	mlx_hook(data.win_ptr, 2, 1L<<0, key_pressed, &data);
+	mlx_hook(data.win_ptr, 3, 1L<<1, key_release, &data);
+	mlx_loop_hook(data.mlx_ptr, key_binding, &data);
 	mlx_loop(data.mlx_ptr);
 }

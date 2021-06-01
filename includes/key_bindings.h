@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 11:41:34 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/05/27 16:32:41 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/06/01 13:12:38 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,18 @@
 # define LCONTROL_KEY 256
 
 # define WALK_SPEED 0.2
-# define TURN_SPEED 0.1
+# define TURN_SPEED 0.07
 
 # define PI 3.1415
 
 typedef struct	s_keys {
-	int horizontal_pos;
-	int vertical_pos;
-	int turn_direction;
+	int w;
+	int a;
+	int s;
+	int d;
+	int turn_right;
+	int turn_left;
+	int esc;
 	float turn_speed;
 	float walk_speed;
 }				t_keys;

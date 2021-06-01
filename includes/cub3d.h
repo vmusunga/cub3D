@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 11:41:38 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/05/31 10:20:31 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/06/01 12:34:24 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct	s_data {
 	char **map;
 
 	t_win	win;
+	t_keys	keys;
 }				t_data;
 
 
@@ -71,9 +72,9 @@ int		hitbox_ray(t_data *data);
 ** KEYS
 */
 
-int	key_pressed(int keycode, t_keys *keys);
-int	key_release(int keycode, t_keys *keys);
-int	key_bindings(int keycode, t_data *data, t_keys *keys);
+int	key_pressed(int keycode, t_data *data);
+int	key_release(int keycode, t_data *data);
+int	key_binding(t_data *data);
 
 /*
 ** RAYCASTING

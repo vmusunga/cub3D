@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 15:29:19 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/05/31 16:18:17 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/06/01 12:54:38 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	rotation_device(t_data *data)
 		data->rot_y += sin(data->ray_angle);
 	}
 	data->ray_length = ft_ray_length(data);
-	printf("(%f)\n", data->ray_length);
+	//printf("(%f)\n", data->ray_length);
 	return (0);
 }
 
