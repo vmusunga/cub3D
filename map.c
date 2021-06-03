@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 11:41:41 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/06/01 15:04:07 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/06/03 15:06:32 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,18 +195,21 @@ int	centered_ray(t_data *data)
 		data->rot_x += cos(data->angle);
 		data->rot_y += sin(data->angle);
 	}
-	printf("(%f)\n", data->ray_length);
+	//printf("(%f)\n", data->ray_length);
 	return (0);
 }
 
 
 
-int	ft_construct(t_data *data)
+void	ft_construct(t_data *data)
 {
 	int fd;
 	fd = open("map.cub", O_RDONLY);
 	//t_keys keys;
 	//ft_move(data, &keys);
+
+	//data->ray_length = hypot(data->rot_x - data->px, data->rot_y - data->py);
+	//printf("(%f)\n", data->ray_length);
 
 	ft_map(fd, data);
 	draw_map(data);
@@ -216,7 +219,7 @@ int	ft_construct(t_data *data)
 	raycasting(data, &data->win);
 	centered_ray(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img, 0, 0);
-	return (0);
+	return ;
 }
 
 int	main()

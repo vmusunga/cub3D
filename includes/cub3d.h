@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 11:41:38 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/06/01 14:52:59 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/06/03 14:38:38 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ typedef struct	s_data {
 */
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-int		ft_construct(t_data *data);
+void		ft_construct(t_data *data);
 void	ft_initialize(t_data *data, t_keys *keys);
 void	ft_move(t_data *data, t_keys *keys);
 int		hitbox_ray(t_data *data);
