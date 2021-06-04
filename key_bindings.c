@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 11:55:15 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/06/01 13:21:38 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/06/04 13:05:00 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,14 @@ int key_binding(t_data *data)
 	if (data->keys.turn_right == 1)
 	{
 		data->angle += TURN_SPEED;
-		//printf("(%f ; %f)\n", data->rot_x, data->rot_y);
+		printf("(%f ; %f)\n", data->rot_x, data->rot_y);
+		printf("(%f)\n", data->ray_length);
 	}
 	if (data->keys.turn_left == 1)
 	{
 		data->angle -= TURN_SPEED;
-		//printf("(%f ; %f)\n", data->rot_x, data->rot_y);
+		printf("(%f ; %f)\n", data->rot_x, data->rot_y);
+		printf("(%f)\n", data->ray_length);
 	}
 	if (data->keys.esc == 1)
 	{

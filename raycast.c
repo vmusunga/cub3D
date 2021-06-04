@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 15:29:19 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/06/03 15:06:38 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/06/04 13:03:08 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ int	rotation_device(t_data *data)
 	return (0);
 }
 
-//void	ft_ray_length(t_data *data)		/** √((x_2-x_1)^2 + (y_2-y-1)^2) **/
-/*{
+void	ft_ray_length(t_data *data)		/** √((x_2-x_1)^2 + (y_2-y-1)^2) **/
+{
 	//double ray_x;
 	//double ray_y;
 	double x;
@@ -49,8 +49,9 @@ int	rotation_device(t_data *data)
 	x = (data->rot_x - data->px);
 	y = (data->rot_y - data->py);
 	data->ray_length = hypot(x, y);
+	//printf("(%f)\n", data->ray_length);
 	return ;
-}*/
+}
 
 /*
 ** Hauteur des murs trops faible
@@ -85,7 +86,8 @@ int	raycasting(t_data *data, t_win *win)
 	data->ray_y = data->rot_y;
 	while (x < win->width)
 	{
-		data->ray_length = hypot(data->rot_x - data->px, data->rot_y - data->py);			// AWA
+		//data->ray_length = hypot(data->rot_x - data->px, data->rot_y - data->py);			// AWA
+		ft_ray_length(data);
 		data->ray_angle += (PI / 3) / (win->width);
 		rotation_device(data);
 		show_3D(data, win);
