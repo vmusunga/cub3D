@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 11:41:34 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/06/01 13:22:26 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/06/04 15:49:49 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,10 @@ typedef struct	s_keys {
 	int a;
 	int s;
 	int d;
+	
+	int stepX;
+	int stepY;
+	
 	int turn_right;
 	int turn_left;
 	int esc;

@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 11:41:38 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/06/03 14:38:38 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/06/04 15:21:13 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void		ft_construct(t_data *data);
 void	ft_initialize(t_data *data, t_keys *keys);
 void	ft_move(t_data *data, t_keys *keys);
-int		hitbox_ray(t_data *data);
+int	hitbox_ray(t_data *data);
+int	hitbox_player(t_data *data, double px, double py);
 
 /*
 ** KEYS
@@ -75,6 +76,8 @@ int		hitbox_ray(t_data *data);
 int	key_pressed(int keycode, t_data *data);
 int	key_release(int keycode, t_data *data);
 int	key_binding(t_data *data);
+void	allow_forward(t_data *data);
+void	allow_backward(t_data *data);
 
 /*
 ** RAYCASTING

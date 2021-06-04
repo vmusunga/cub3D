@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 11:55:15 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/06/04 13:05:00 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/06/04 16:39:12 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int key_binding(t_data *data)
 	dep = 7 * WALK_SPEED;
 	if (data->keys.d == 1)
 	{				//fct -> if not un mur then do
+		//allow_movement(data);
 		data->px += dep * cosf(data->angle + PI / 2);
 		data->py += dep * sinf(data->angle + PI / 2);
 	}
@@ -71,13 +72,15 @@ int key_binding(t_data *data)
 	}
 	if (data->keys.w == 1)
 	{
-		data->px += dep * cosf(data->angle);
-		data->py += dep * sinf(data->angle);
+		allow_forward(data);
+		//data->px += dep * cosf(data->angle);
+		//data->py += dep * sinf(data->angle);
 	}
 	if (data->keys.s == 1)
 	{
-		data->px -= dep * cosf(data->angle);
-		data->py -= dep * sinf(data->angle);
+		allow_backward(data);
+		//data->px -= dep * cosf(data->angle);
+		//data->py -= dep * sinf(data->angle);
 	}
 	if (data->keys.turn_right == 1)
 	{
@@ -100,5 +103,83 @@ int key_binding(t_data *data)
 	return (0);
 }
 
-//void	ft_move(t_data *data, t_keys *keys)
+void	allow_forward(t_data *data)
+{
+	float dep;
 
+	double testx;
+	double testy;
+
+	dep = 7 * WALK_SPEED;
+	testx = data->px + dep * cosf(data->angle);
+	testy = data->py + dep * sinf(data->angle);
+	if (hitbox_player(data, testx, data->py) == 1)
+		printf("OOOOUUUT\n");
+	if (hitbox_player(data, testx, data->py) == 0)
+	{
+		data->py += dep * sinf(data->angle);
+		printf("MKAY\n");
+	}
+	if (hitbox_player(data, data->px, testy) == 0)
+	{
+		data->px += dep * cosf(data->angle);
+		printf("MKAY\n");
+	}
+	return ;
+}
+
+void	allow_backward(t_data *data)
+{
+	float dep;
+
+	dep = 7 * WALK_SPEED;
+	
+	if (hitbox_player(data, data->px - dep * cosf(data->angle), data->py) == 0)
+		data->px -= dep * cosf(data->angle);
+	if (hitbox_player(data, data->px, data->py - dep * sinf(data->angle)) == 0)
+		data->py -= dep * sinf(data->angle);
+	return ;
+}
+
+/*void	define_step(t_data *data)		//THOM
+{
+	data->keys.stepX = 0;
+	data->keys.stepY = 0;
+	if ((data->angle > 0 && data->angle < (PI / 2)))
+	{
+		data->keys.stepX = 1;
+		data->keys.stepY = 1;
+	}
+	if ((data->angle > (PI / 2) && data->angle < PI))
+	{
+		data->keys.stepX = -1;
+		data->keys.stepY = 1;
+	}
+	if ((data->angle > PI && data->angle < (3 * PI / 2)))
+	{
+		data->keys.stepX = -1;
+		data->keys.stepY = -1;
+	}
+	if ((data->angle > (3 * PI / 2) && data->angle < (2 * PI)))
+	{
+		data->keys.stepX = 1;
+		data->keys.stepY = -1;
+	}
+	return ;
+}
+void	allow_forward(t_data *data)
+{
+	float dep;
+	int x;
+	int y;
+	
+	define_step(data);
+	dep = 7 * WALK_SPEED;
+	x = (int)((data->px / BLOCK_SIZE) + (dep * data->keys.stepX));
+	y = (int)((data->py / BLOCK_SIZE) + (dep * data->keys.stepY));
+	if (data->map[x][(int)data->py / BLOCK_SIZE] == '0')
+		data->px += dep * cosf(data->angle);
+	if (data->map[(int)data->px / BLOCK_SIZE][y] == '0')
+		data->py += dep * sinf(data->angle);
+	return ;
+}*/

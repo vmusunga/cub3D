@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 11:41:41 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/06/04 13:00:16 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/06/04 16:04:51 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	draw_map(t_data *data)
 	return ;
 }
 
-int	hitbox_player(t_data *data, int player_x,int player_y)
+int	hitbox_player(t_data *data, double px, double py)
 {
 	double bx;
 	double by;
@@ -108,7 +108,7 @@ int	hitbox_player(t_data *data, int player_x,int player_y)
 		{
 			if (data->map[x][y] == '1')
 			{
-				if ((bx <= player_x && player_x <= bx + BLOCK_SIZE) && (by <= player_y && player_y <= by + BLOCK_SIZE))
+				if ((bx <= px && px <= bx + BLOCK_SIZE) && (by <= py && py <= by + BLOCK_SIZE))
 					return (1);
 			}
 			bx += BLOCK_SIZE;
@@ -215,10 +215,10 @@ void	ft_construct(t_data *data)
 	draw_map(data);
 	//hitbox_player(data, data->px, data->py);
 	//player(data);
-	hitbox_ray(data);
-	//raycasting(data, &data->win);
+	//hitbox_ray(data);
+	raycasting(data, &data->win);
 	centered_ray(data);
-	ft_ray_length(data);
+	//ft_ray_length(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img, 0, 0);
 	return ;
 }
