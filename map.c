@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 11:41:41 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/06/04 16:04:51 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/06/07 12:03:45 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,7 +218,7 @@ void	ft_construct(t_data *data)
 	//hitbox_ray(data);
 	raycasting(data, &data->win);
 	centered_ray(data);
-	//ft_ray_length(data);
+
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img, 0, 0);
 	return ;
 }

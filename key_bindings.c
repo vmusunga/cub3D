@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 11:55:15 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/06/04 16:39:12 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/06/07 15:22:45 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,28 +60,13 @@ int key_binding(t_data *data)
 	data->img = mlx_new_image(data->mlx_ptr, data->win.width, data->win.height);
 	dep = 7 * WALK_SPEED;
 	if (data->keys.d == 1)
-	{				//fct -> if not un mur then do
-		//allow_movement(data);
-		data->px += dep * cosf(data->angle + PI / 2);
-		data->py += dep * sinf(data->angle + PI / 2);
-	}
+		allow_right(data);
 	if (data->keys.a == 1)
-	{
-		data->px -= dep * cosf(data->angle + PI / 2);
-		data->py -= dep * sinf(data->angle + PI / 2);
-	}
+		allow_left(data);
 	if (data->keys.w == 1)
-	{
 		allow_forward(data);
-		//data->px += dep * cosf(data->angle);
-		//data->py += dep * sinf(data->angle);
-	}
 	if (data->keys.s == 1)
-	{
 		allow_backward(data);
-		//data->px -= dep * cosf(data->angle);
-		//data->py -= dep * sinf(data->angle);
-	}
 	if (data->keys.turn_right == 1)
 	{
 		data->angle += TURN_SPEED;
@@ -92,7 +77,8 @@ int key_binding(t_data *data)
 	{
 		data->angle -= TURN_SPEED;
 		printf("(%f ; %f)\n", data->rot_x, data->rot_y);
-		printf("(%f)\n", data->ray_length);
+		printf("(%f)\n", data->ray_length);	
+		printf("SQRT(%f)\n", sqrt(data->rot_x));
 	}
 	if (data->keys.esc == 1)
 	{
@@ -106,38 +92,62 @@ int key_binding(t_data *data)
 void	allow_forward(t_data *data)
 {
 	float dep;
-
 	double testx;
 	double testy;
 
 	dep = 7 * WALK_SPEED;
 	testx = data->px + dep * cosf(data->angle);
 	testy = data->py + dep * sinf(data->angle);
-	if (hitbox_player(data, testx, data->py) == 1)
-		printf("OOOOUUUT\n");
 	if (hitbox_player(data, testx, data->py) == 0)
-	{
 		data->py += dep * sinf(data->angle);
-		printf("MKAY\n");
-	}
 	if (hitbox_player(data, data->px, testy) == 0)
-	{
 		data->px += dep * cosf(data->angle);
-		printf("MKAY\n");
-	}
 	return ;
 }
 
 void	allow_backward(t_data *data)
 {
 	float dep;
+	double testx;
+	double testy;
 
 	dep = 7 * WALK_SPEED;
-	
-	if (hitbox_player(data, data->px - dep * cosf(data->angle), data->py) == 0)
+	testx = data->px - dep * cosf(data->angle);
+	testy = data->py - dep * sinf(data->angle);
+	if (hitbox_player(data, testx, data->py) == 0)
 		data->px -= dep * cosf(data->angle);
-	if (hitbox_player(data, data->px, data->py - dep * sinf(data->angle)) == 0)
+	if (hitbox_player(data, data->px, testy) == 0)
 		data->py -= dep * sinf(data->angle);
+	return ;
+}
+
+void	allow_left(t_data *data)
+{
+	float dep;
+	float side_angle;
+	
+	dep = 7 * WALK_SPEED;
+	side_angle = data->angle + (PI / 2);
+	
+	if (hitbox_player(data, data->px - dep * cosf(side_angle), data->py) == 0)
+		data->px -= dep * cosf(side_angle);
+	if (hitbox_player(data, data->px, data->py - dep * sinf(side_angle)) == 0)
+		data->py -= dep * sinf(side_angle);
+	return ;
+}
+
+void	allow_right(t_data *data)
+{
+	float dep;
+	float side_angle;
+
+	dep = 7 * WALK_SPEED;
+	side_angle = data->angle + (PI / 2);
+
+	if (hitbox_player(data, data->px + dep * cosf(side_angle), data->py) == 0)
+		data->py += dep * sinf(side_angle);
+	if (hitbox_player(data, data->px, data->py + dep * sinf(side_angle)) == 0)
+		data->px += dep * cosf(side_angle);
 	return ;
 }
 

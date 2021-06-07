@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 15:29:19 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/06/04 14:11:07 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/06/07 15:22:07 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,13 @@ int	rotation_device(t_data *data)
 
 void	ft_ray_length(t_data *data)		/** √((x_2-x_1)^2 + (y_2-y-1)^2) **/
 {
+
+ 
+	
 	//double ray_x;
 	//double ray_y;
 	double x;
 	double y;
-
 	//data->px;		//player position
 	//data->py;
 	//ray_x = data->rot_x;		//end of ray
@@ -48,10 +50,10 @@ void	ft_ray_length(t_data *data)		/** √((x_2-x_1)^2 + (y_2-y-1)^2) **/
 
 	x = (data->rot_x - data->px);
 	y = (data->rot_y - data->py);
-	data->ray_length = hypot(x, y);
+	data->ray_length = sqrt(pow(x, 2) + pow(y, 2));
 	//printf("(%f)\n", data->ray_length);
 	return ;
-}
+}		//data->ray_length = hypot(data->rot_x - data->px, data->rot_y - data->py);		
 
 /*
 ** Hauteur des murs trops faible
@@ -77,7 +79,6 @@ int	show_3D(t_data *data, t_win *win)
 int	raycasting(t_data *data, t_win *win)
 {
 	int x;
-
 	x = 0;
 
 	data->ray_angle = (data->angle) - (PI / 6);
@@ -86,9 +87,10 @@ int	raycasting(t_data *data, t_win *win)
 	data->ray_y = data->rot_y;
 	while (x < win->width)
 	{
-		//data->ray_length = hypot(data->rot_x - data->px, data->rot_y - data->py);			// AWA
+		data->ray_length = hypot(data->rot_x - data->px, data->rot_y - data->py);			// AWA
+		//ft_ray_length(data);
 		rotation_device(data);
-		ft_ray_length(data);
+		//ft_ray_length(data);
 		show_3D(data, win);
 		data->ray_angle += (PI / 3) / (win->width);
 		//angle_overflow(data);

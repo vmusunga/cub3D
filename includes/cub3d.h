@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 11:41:38 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/06/04 15:21:13 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/06/07 14:50:20 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ typedef struct	s_data {
 */
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void		ft_construct(t_data *data);
+void	ft_construct(t_data *data);
 void	ft_initialize(t_data *data, t_keys *keys);
 void	ft_move(t_data *data, t_keys *keys);
 int	hitbox_ray(t_data *data);
@@ -78,14 +78,16 @@ int	key_release(int keycode, t_data *data);
 int	key_binding(t_data *data);
 void	allow_forward(t_data *data);
 void	allow_backward(t_data *data);
+void	allow_left(t_data *data);
+void	allow_right(t_data *data);
 
 /*
 ** RAYCASTING
 */
 
+void	ft_ray_length(t_data *data);
 int	raycasting(t_data *data, t_win *win);
 int	rotation_device(t_data *data);
-void	ft_ray_length(t_data *data);
 int	show_3D(t_data *data, t_win *win);
 
 #endif
