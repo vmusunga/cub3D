@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 11:41:41 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/06/07 12:03:45 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/09/27 16:53:08 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 #include "mlx.h"
 #include "includes/cub3d.h"
 
-char	**ft_map(int fd, t_data *data)
+char	**ft_map(int fd, t_data *data) //!\\ malloc: count lines
 {
 	int i;
 	int x;
@@ -198,8 +198,6 @@ int	centered_ray(t_data *data)
 	//printf("(%f)\n", data->ray_length);
 	return (0);
 }
-
-
 
 void	ft_construct(t_data *data)
 {

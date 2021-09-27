@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 11:55:15 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/06/07 15:22:45 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/09/27 16:37:25 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int key_binding(t_data *data)
 	{
 		data->angle -= TURN_SPEED;
 		printf("(%f ; %f)\n", data->rot_x, data->rot_y);
-		printf("(%f)\n", data->ray_length);	
+		printf("(%f)\n", data->ray_length);
 		printf("SQRT(%f)\n", sqrt(data->rot_x));
 	}
 	if (data->keys.esc == 1)

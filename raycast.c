@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 15:29:19 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/06/07 15:22:07 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/09/27 16:40:25 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int	show_3D(t_data *data, t_win *win)
 {
 	double len;
 
+	//data->ray_length *= cos(data->ray_angle);
 	len = win->height / (data->ray_length);
 	data->ray_y = (win->height / 2) - (len / 2);
 	while (len > 0)
@@ -76,6 +77,7 @@ int	show_3D(t_data *data, t_win *win)
 	return (0);
 }
 
+
 int	raycasting(t_data *data, t_win *win)
 {
 	int x;
@@ -87,10 +89,11 @@ int	raycasting(t_data *data, t_win *win)
 	data->ray_y = data->rot_y;
 	while (x < win->width)
 	{
-		data->ray_length = hypot(data->rot_x - data->px, data->rot_y - data->py);			// AWA
+		data->ray_length = hypot(data->rot_x - data->px, data->rot_y - data->py);			// origin(px/py) & end(rot)
 		//ft_ray_length(data);
 		rotation_device(data);
 		//ft_ray_length(data);
+		
 		show_3D(data, win);
 		data->ray_angle += (PI / 3) / (win->width);
 		//angle_overflow(data);
