@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 11:41:38 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/06/07 14:50:20 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/09/28 15:22:15 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,9 @@ typedef struct	s_data {
 	double ray_length;
 
 	char **map;
+
+	double wall_bottom_x;
+	double wall_bottom_y;
 
 	t_win	win;
 	t_keys	keys;

@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 15:29:19 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/09/27 16:40:25 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/09/28 15:56:24 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	angle_overflow(t_data *data)
 	return ;
 }
 
-int	rotation_device(t_data *data)
+int	rotation_device(t_data *data)					//** GIVES END COORD (rot_x;rot_y) OF VECTOR + DRAWS IT
 {
 	data->rot_x = data->px; // vector's origin
 	data->rot_y = data->py;
@@ -31,6 +31,8 @@ int	rotation_device(t_data *data)
 		data->rot_x += cos(data->ray_angle);
 		data->rot_y += sin(data->ray_angle);
 	}
+	data->wall_bottom_x = data->rot_x;
+	data->wall_bottom_y = data->rot_y;
 	return (0);
 }
 
@@ -63,9 +65,12 @@ void	ft_ray_length(t_data *data)		/** √((x_2-x_1)^2 + (y_2-y-1)^2) **/
 int	show_3D(t_data *data, t_win *win)
 {
 	double len;
+	//double wall_start;
 
 	//data->ray_length *= cos(data->ray_angle);
 	len = win->height / (data->ray_length);
+	if (len > win->height)
+		len = win->height;
 	data->ray_y = (win->height / 2) - (len / 2);
 	while (len > 0)
 	{
@@ -73,6 +78,7 @@ int	show_3D(t_data *data, t_win *win)
 		len--;
 		data->ray_y++;
 	}
+	//wall_start++;
 	data->ray_x++;
 	return (0);
 }
@@ -85,18 +91,20 @@ int	raycasting(t_data *data, t_win *win)
 
 	data->ray_angle = (data->angle) - (PI / 6);
 	//angle_overflow(data);
-	data->ray_x = data->rot_x;
+	data->ray_x = data->rot_x;						//RAY TOUCHING WALL COORD
 	data->ray_y = data->rot_y;
 	while (x < win->width)
 	{
+		rotation_device(data);
 		data->ray_length = hypot(data->rot_x - data->px, data->rot_y - data->py);			// origin(px/py) & end(rot)
 		//ft_ray_length(data);
-		rotation_device(data);
 		//ft_ray_length(data);
 		
 		show_3D(data, win);
 		data->ray_angle += (PI / 3) / (win->width);
 		//angle_overflow(data);
+		data->wall_bottom_x = 0;
+		data->wall_bottom_y = 0;
 		x++;
 	}
 	return (0);
