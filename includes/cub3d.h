@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 11:41:38 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/09/28 15:22:15 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/09/28 16:52:39 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ typedef struct	s_data {
 	double angle;
 	double px;
 	double py;
+	double posx;
+	double posy;
 	double rot_x;
 	double rot_y;
 	double ray_x;

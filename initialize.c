@@ -6,7 +6,7 @@
 /*   By: vmusunga <vmusunga@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 15:55:46 by vmusunga          #+#    #+#             */
-/*   Updated: 2021/06/04 14:00:46 by vmusunga         ###   ########.fr       */
+/*   Updated: 2021/09/28 16:50:48 by vmusunga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 void	ft_initialize(t_data *data, t_keys *keys)
 {
-	data->px = 30;
-	data->py = 30;
+	data->px = 50;
+	data->py = 50;
 	data->angle = 0;
 	keys->walk_speed = WALK_SPEED;
 	keys->turn_speed = TURN_SPEED;
